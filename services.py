@@ -1,6 +1,6 @@
 import json
 import os
-from Crystal import Crystal
+from models import db, User, Crystal
 
 def load_crystals():
     base_dir = os.path.dirname(__file__)
@@ -21,3 +21,7 @@ def load_crystals():
             )
         )
     return crystals
+
+def add_to_saves(user, crystal):
+    user.user_saves.append(crystal)
+    db.session.commit()
