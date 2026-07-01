@@ -51,12 +51,13 @@ def register():
     form = RegistrationForm()
     if form.validate_on_submit(): # checks if entries are valid
         flash(f'Account created for {form.username.data}!', 'success')
-        return redirect(url_for('home')) # if so - send to home page
 
         #new stuff from day 3
         user = User(username=form.username.data, email=form.email.data, password=form.password.data)
         db.session.add(user)
         db.session.commit()
+        return redirect(url_for('home')) # if so - send to home page
+
     return render_template('register.html', form=form)
 
 # @app.route("/update_server", methods=['POST'])
