@@ -1,5 +1,5 @@
 from flask import Flask, render_template, url_for, flash, redirect, request
-# from flask_behind_proxy import FlaskBehindProxy
+from flask_behind_proxy import FlaskBehindProxy
 from flask_sqlalchemy import SQLAlchemy
 from services import load_crystals
 from forms import RegistrationForm
@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 import os
 
 app = Flask(__name__)
-# proxied = FlaskBehindProxy(app)
+proxied = FlaskBehindProxy(app)
 
 load_dotenv(dotenv_path=".env", override=True)
 app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")
@@ -56,15 +56,15 @@ def register():
 
     return render_template('register.html', form=form)
 
-# @app.route("/update_server", methods=['POST'])
-# def webhook():
-#     if request.method == 'POST':
-#         repo = git.Repo('/home/ukaylee/crystalarium')
-#         origin = repo.remotes.origin
-#         origin.pull()
-#         return 'Updated PythonAnywhere successfully', 200
-#     else:
-#         return 'Wrong event type', 400
+@app.route("/update_server", methods=['POST'])
+def webhook():
+    if request.method == 'POST':
+        repo = git.Repo('/home/ukaylee/crystalarium')
+        origin = repo.remotes.origin
+        origin.pull()
+        return 'Updated PythonAnywhere successfully', 200
+    else:
+        return 'Wrong event type', 400
 
 
 if __name__ == '__main__':
