@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="body_container">
+    <h2>~ Directory ~</h2>
+    <p>Here, you can find information about a bunch of crystals.</p>
+
+    <div class="to_watch">
+        <h3>Crystals:</h3>
+        
+        <ul>
+        {% for crystal in crystals %}
+            <li>
+                <div>
+                    <p><b>{{ crystal.name }}</b></p>
+                    <p>Properties: {{ crystal.props }}</p>
+                    <p>Description: {{ crystal.desc }}</p>
+                </div>
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+
+</div>
+
+
+{% endblock %}
