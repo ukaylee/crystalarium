@@ -28,18 +28,10 @@ with app.app_context():
 
 def home():
     return render_template('index.html')
-    
-@app.route("/gallery")
-def gallery():
-    return render_template('gallery.html')
 
 @app.route("/about")
 def about():
     return render_template('about.html')
-
-@app.route("/tracker")
-def tracker():
-    return render_template('tracker.html')
 
 @app.route("/directory")
 def directory():
