@@ -7,13 +7,14 @@ import git
 from dotenv import load_dotenv
 import os
 
+load_dotenv("/home/ukaylee/crystalarium/.env")
+
 app = Flask(__name__)
 proxied = FlaskBehindProxy(app)
 
-load_dotenv(dotenv_path=".env", override=True)
-app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")
+app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///site.db"
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 db = SQLAlchemy(app)
 
 class User(db.Model):
