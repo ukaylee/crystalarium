@@ -20,7 +20,11 @@
               <li><a href="{{ url_for('about') }}">About</a></li>
               <li><a href="{{ url_for('directory') }}">Directory</a></li>
               <li><a href="{{ url_for('saves') }}">Collection</a></li>
-              <li><a href="{{ url_for('register') }}">Register</a></li>
+              {% if session.get('user_id') %}
+                <li><a href="{{ url_for('logout') }}">Logout</a></li>
+              {% else %}
+                <li><a href="{{ url_for('register') }}">Register</a></li>
+              {% endif %}
             </ul>
         </nav>
   </header>

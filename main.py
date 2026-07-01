@@ -1,7 +1,7 @@
-from flask import Flask, render_template, url_for, flash, redirect, request
+from flask import Flask, render_template, url_for, flash, redirect, request, session
 from flask_behind_proxy import FlaskBehindProxy
 from services import *
-from forms import RegistrationForm
+from forms import RegistrationForm, LoginForm
 import git
 from dotenv import load_dotenv
 import os
@@ -31,47 +31,94 @@ def about():
 
 @app.route("/directory")
 def directory():
-    # crystals = load_crystals()
-    crystals = Crystal.query.all()
-    return render_template("directory.html", crystals=crystals)
+  # crystals = load_crystals()
+  crystals = Crystal.query.all()
+  return render_template("directory.html", crystals=crystals)
 
 @app.route("/saved")
 def saves():
-    # crystals = load_crystals()
-    user = User.query.get(1)
-    crystals = user.user_saves
-    return render_template("saved.html", crystals=crystals)
+  user = get_current_user()
+
+  if not user:
+    return redirect(url_for("login"))
+
+  crystals = user.user_saves
+  return render_template("saved.html", crystals=crystals)
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
-    form = RegistrationForm()
-    if form.validate_on_submit(): # checks if entries are valid
-        flash(f'Account created for {form.username.data}!', 'success')
+  form = RegistrationForm()
+  if form.validate_on_submit(): # checks if entries are valid
+    flash(f'Account created for {form.username.data}!', 'success')
 
-        #new stuff from day 3
-        user = User(username=form.username.data, email=form.email.data, password=form.password.data)
-        db.session.add(user)
-        db.session.commit()
-        return redirect(url_for('home')) # if so - send to home page
+    #new stuff from day 3
+    user = User(username=form.username.data, email=form.email.data, password=form.password.data)
+    db.session.add(user)
+    db.session.commit()
+    session["user_id"] = user.id
 
-    return render_template('register.html', form=form)
+    return redirect(url_for('home')) # if so - send to home page
+
+  return render_template('register.html', form=form)
+
+@app.route("/login", methods=['GET', 'POST'])
+def login():
+  form = LoginForm()
+  if request.method == "POST":
+    user = User.query.filter_by(username=request.form["username"]).first()
+
+    if user and user.password == request.form["password"]:
+      session["user_id"] = user.id
+      flash("Logged in successfully!", "success")
+      return redirect(url_for("home"))
+
+    flash("Invalid credentials", "danger")
+
+  return render_template("login.html", form=form)
+
+@app.route("/logout")
+def logout():
+  session.pop("user_id", None)
+  return redirect(url_for("home"))
 
 @app.route("/update_server", methods=['POST'])
 def webhook():
-    if request.method == 'POST':
-        repo = git.Repo('/home/ukaylee/crystalarium')
-        origin = repo.remotes.origin
-        origin.pull()
-        return 'Updated PythonAnywhere successfully', 200
-    else:
-        return 'Wrong event type', 400
+  if request.method == 'POST':
+    repo = git.Repo('/home/ukaylee/crystalarium')
+    origin = repo.remotes.origin
+    origin.pull()
+    return 'Updated PythonAnywhere successfully', 200
+  else:
+    return 'Wrong event type', 400
 
 @app.route("/save_crystal/<int:crystal_id>")
 def save_crystal(crystal_id):
-    user = User.query.get(1)
-    crystal = Crystal.query.get(crystal_id)
-    add_to_saves(user, crystal)
-    return redirect(url_for("directory"))
+  user = get_current_user()
+
+  if not user:
+    return redirect(url_for("login"))
+
+  crystal = Crystal.query.get(crystal_id)
+  add_to_saves(user, crystal)
+  return redirect(url_for("directory"))
+
+@app.route("/unsave_crystal/<int:crystal_id>")
+def unsave_crystal(crystal_id):
+  user = get_current_user()
+
+  if not user:
+    return redirect(url_for("login"))
+
+  crystal = Crystal.query.get(crystal_id)
+  remove_from_saves(user, crystal)
+  return redirect(url_for("saves"))
+
+def get_current_user():
+  user_id = session.get("user_id")
+  if not user_id:
+    return None
+  user = User.query.get(user_id)
+  return user 
 
 
 if __name__ == '__main__':
