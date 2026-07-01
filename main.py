@@ -4,10 +4,14 @@ from flask_sqlalchemy import SQLAlchemy
 from services import load_crystals
 from forms import RegistrationForm
 import git
+from dotenv import load_dotenv
+import os
 
 app = Flask(__name__)
 # proxied = FlaskBehindProxy(app)
-app.config['SECRET_KEY'] = "0d6a7916714408bffc2c5ceb0d976294" #need to put this in .env
+
+load_dotenv(dotenv_path=".env", override=True)
+app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 db = SQLAlchemy(app)
