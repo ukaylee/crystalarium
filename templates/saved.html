@@ -7,9 +7,13 @@
     <p>These are the crystals that you have saved.</p>
 
     <div>
-        <h3>Crystals:</h3>
         
+        {% if not crystals %}
+        <p>You haven't saved any crystals! Go to directory and click save to add some to your collection.</p>
+        {% else %}
+        <h3>Crystals:</h3>
         <ul class="crystal_list">
+
         {% for crystal in crystals %}
             <li>
                     <img src={{crystal.img}} alt={{crystal.name}}>
@@ -22,6 +26,7 @@
             </li>
         {% endfor %}
         </ul>
+        {% endif %}
     </div>
 
 </div>
