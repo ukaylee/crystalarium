@@ -1,11 +1,11 @@
 from flask import Flask, render_template, url_for, flash, redirect, request
-from flask_behind_proxy import FlaskBehindProxy
+# from flask_behind_proxy import FlaskBehindProxy
 from services import load_crystals
 from forms import RegistrationForm
 import git
 
-app = Flask(__name__)
-proxied = FlaskBehindProxy(app)
+# app = Flask(__name__)
+# proxied = FlaskBehindProxy(app)
 app.config['SECRET_KEY'] = "0d6a7916714408bffc2c5ceb0d976294" #need to put this in .env
 
 @app.route("/")
@@ -38,15 +38,15 @@ def register():
         return redirect(url_for('home')) # if so - send to home page
     return render_template('register.html', form=form)
 
-@app.route("/update_server", methods=['POST'])
-def webhook():
-    if request.method == 'POST':
-        repo = git.Repo('/home/ukaylee/crystalarium')
-        origin = repo.remotes.origin
-        origin.pull()
-        return 'Updated PythonAnywhere successfully', 200
-    else:
-        return 'Wrong event type', 400
+# @app.route("/update_server", methods=['POST'])
+# def webhook():
+#     if request.method == 'POST':
+#         repo = git.Repo('/home/ukaylee/crystalarium')
+#         origin = repo.remotes.origin
+#         origin.pull()
+#         return 'Updated PythonAnywhere successfully', 200
+#     else:
+#         return 'Wrong event type', 400
 
 
 if __name__ == '__main__':
