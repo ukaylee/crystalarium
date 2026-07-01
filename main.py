@@ -4,7 +4,7 @@ from services import load_crystals
 from forms import RegistrationForm
 import git
 
-# app = Flask(__name__)
+app = Flask(__name__)
 # proxied = FlaskBehindProxy(app)
 app.config['SECRET_KEY'] = "0d6a7916714408bffc2c5ceb0d976294" #need to put this in .env
 
