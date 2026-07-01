@@ -3,48 +3,35 @@
     "id": 1,
     "name": "Amethyst",
     "props": "Calming, intuition, protection",
-    "desc": "A purple crystal known for promoting calmness, spiritual awareness, and emotional balance. Often used for stress relief and meditation."
+    "desc": "A purple crystal known for promoting calmness, spiritual awareness, and emotional balance. Often used for stress relief and meditation.",
+    "img": "https://www.crystalvaults.com/wp-content/uploads/2021/01/amethyst-natural-compressor.jpg"
   },
   {
     "id": 2,
     "name": "Rose Quartz",
     "props": "Love, compassion, emotional healing",
-    "desc": "A soft pink stone associated with unconditional love and emotional healing. Commonly used to strengthen relationships and self-love."
+    "desc": "A soft pink stone associated with unconditional love and emotional healing. Commonly used to strengthen relationships and self-love.",
+    "img": "https://www.crystalvaults.com/wp-content/uploads/2023/01/922987A.jpg"
   },
   {
     "id": 3,
-    "name": "Clear Quartz",
-    "props": "Clarity, amplification, energy cleansing",
-    "desc": "Known as the 'master healer,' this clear crystal is believed to amplify energy and intentions while promoting mental clarity."
+    "name": "Black Tourmaline",
+    "props": "Protection, grounding, negative energy shielding",
+    "desc": "A powerful grounding stone believed to protect against negative energy and electromagnetic interference.",
+    "img": "https://www.crystalvaults.com/wp-content/uploads/2018/12/922077a.jpg"
   },
   {
     "id": 4,
-    "name": "Black Tourmaline",
-    "props": "Protection, grounding, negative energy shielding",
-    "desc": "A powerful grounding stone believed to protect against negative energy and electromagnetic interference."
+    "name": "Citrine",
+    "props": "Abundance, joy, manifestation",
+    "desc": "A bright yellow crystal associated with prosperity, confidence, and positive energy.",
+    "img": "https://www.crystalvaults.com/wp-content/uploads/2019/03/190763-1024x1024.jpg"
   },
   {
     "id": 5,
-    "name": "Citrine",
-    "props": "Abundance, joy, manifestation",
-    "desc": "A bright yellow crystal associated with prosperity, confidence, and positive energy."
-  },
-  {
-    "id": 6,
-    "name": "Lapis Lazuli",
-    "props": "Wisdom, truth, communication",
-    "desc": "A deep blue stone historically used by royalty, believed to enhance intellectual ability and truthfulness."
-  },
-  {
-    "id": 7,
-    "name": "Obsidian",
-    "props": "Protection, truth, grounding",
-    "desc": "A volcanic glass crystal used for deep self-reflection and protection against negativity."
-  },
-  {
-    "id": 8,
     "name": "Selenite",
     "props": "Purification, peace, spiritual connection",
-    "desc": "A translucent crystal believed to cleanse energy and promote mental clarity and peace."
+    "desc": "A translucent crystal believed to cleanse energy and promote mental clarity and peace.",
+    "img": "https://www.crystalvaults.com/wp-content/uploads/2025/07/250576-A.jpg"
   }
 ]

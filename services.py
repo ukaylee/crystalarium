@@ -16,7 +16,8 @@ def load_crystals():
                 item["id"],
                 item["name"],
                 item["props"],
-                item["desc"]
+                item["desc"],
+                item["img"]
             )
         )
     return crystals
